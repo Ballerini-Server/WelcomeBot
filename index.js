@@ -72,12 +72,6 @@ client.on('message', async msg => {
       })
       img.blit(halos.find(h => h.max >= halo).image, W - AVATAR_SIZE - AVATAR_STROKE / 2 - AVATAR_BORDER, (H - AVATAR_SIZE - AVATAR_STROKE) / 2)
       img.blit(avatar, W - AVATAR_SIZE - AVATAR_BORDER, (H - AVATAR_SIZE) / 2)
-
-      // DEBUG
-      let font = await jimp.loadFont(jimp.FONT_SANS_16_WHITE)
-      img.print(font, 10, 10, `${halo}%`)
-      // DEBUG
-
       img.blit(images.itens[0].image, (10 + AVATAR_BORDER / 4), 10)
       img.blit(images.strips[0].image, 10 + AVATAR_BORDER / 4, 60)
       const font2 = await jimp.loadFont('./fonts/DINRundschriftBreit.ttf.fnt')
@@ -89,7 +83,7 @@ client.on('message', async msg => {
       img.getBuffer(jimp.MIME_PNG, (err, image) => {
         if (err) throw err
         const embed = new MessageEmbed()
-          .setTitle(`${msg.author.tag} | Bem-vindx!`)
+          .setTitle(`${msg.author.tag} | Bem-vindx! #${halo}`)
           .setDescription(`Salve <@${msg.author.id}> Você acabou de entrar no servidor Ballerini. Aqui você poderá interagir com a comunidade, jogar, encontrar vagas, conversar sobre programação, tecnologia e muito mais!`)
           .setColor(colors.background.color)
           .setThumbnail(msg.author.displayAvatarURL({ format: 'png' }))
