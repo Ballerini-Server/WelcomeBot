@@ -73,12 +73,12 @@ client.on('message', async msg => {
       img.blit(halos.find(h => h.max >= halo).image, W - AVATAR_SIZE - AVATAR_STROKE / 2 - AVATAR_BORDER, (H - AVATAR_SIZE - AVATAR_STROKE) / 2)
       img.blit(avatar, W - AVATAR_SIZE - AVATAR_BORDER, (H - AVATAR_SIZE) / 2)
 
+      // DEBUG
       let font = await jimp.loadFont(jimp.FONT_SANS_16_WHITE)
       img.print(font, 10, 10, `${halo}%`)
-
+      // DEBUG
 
       img.blit(images.itens[0].image, (10 + AVATAR_BORDER / 4), 10)
-
       img.blit(images.strips[0].image, 10 + AVATAR_BORDER / 4, 60)
       const font2 = await jimp.loadFont('./fonts/DINRundschriftBreit.ttf.fnt')
       img.print(font2, 10 + AVATAR_BORDER / 4, 60, {
