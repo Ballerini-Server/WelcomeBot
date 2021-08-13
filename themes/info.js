@@ -1,4 +1,5 @@
 export const halos = [
+  { max: 8, color: 0x97d4d9ff },
   { max: 70, color: 0xfeafbeff },
   { max: 90, color: 0xb3dfd3ff },
   { max: 98, color: 0xfff2e7ff },
@@ -14,7 +15,9 @@ export const colors = {
 
 export const images = {
   itens: [
+    { filename: 'circle-small.png' },
     { filename: 'circle.png' },
+    { filename: 'line-small.png' },
     { filename: 'line.png' },
     { filename: 'star.png' }
   ]
