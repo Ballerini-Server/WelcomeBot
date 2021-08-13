@@ -11,7 +11,7 @@ const AVATAR_SIZE = 200
 const AVATAR_BORDER = 50
 const AVATAR_STROKE = 10
 
-import { Client, MessageAttachment } from 'discord.js'
+import { Client, MessageAttachment, MessageEmbed } from 'discord.js'
 import jimp from 'jimp'
 import { Signature } from './signature.js'
 import { halos, colors, images } from './themes/info.js'
@@ -52,13 +52,13 @@ client.on('message', async msg => {
         for (let c = 0; c < W / IS; ++c) {
           if (sign.check(lucky)) {
             lucky = LUCKY
-            const item = images.itens[sign.maxedOut(images.itens.length)].image
-            const colored = new jimp(item.bitmap.width, item.bitmap.height, colors.itens[sign.maxedOut(colors.itens.length)], (err, img) => {
+            const item = images.assets[sign.maxedOut(images.assets.length)].image
+            const colored = new jimp(item.bitmap.width, item.bitmap.height, colors.assets[sign.maxedOut(colors.assets.length)], (err, img) => {
               if (err) throw err
               return img
             })
             colored.mask(item, 0, 0)
-            img.composite(colored, c * IS + sign.maxedOut(IS - item.bitmap.width), l * IS + sign.maxedOut(IS - item.bitmap.height))
+            img.blit(colored, c * IS + sign.maxedOut(IS - item.bitmap.width), l * IS + sign.maxedOut(IS - item.bitmap.height))
           } else {
             lucky -= LUCKY_DEC
           }
@@ -70,14 +70,41 @@ client.on('message', async msg => {
         image.circle()
         avatar = image
       })
-      img.composite(halos.find(h => h.max >= halo).image, W - AVATAR_SIZE - AVATAR_STROKE / 2 - AVATAR_BORDER, (H - AVATAR_SIZE - AVATAR_STROKE) / 2)
-      img.composite(avatar, W - AVATAR_SIZE - AVATAR_BORDER, (H - AVATAR_SIZE) / 2)
+      img.blit(halos.find(h => h.max >= halo).image, W - AVATAR_SIZE - AVATAR_STROKE / 2 - AVATAR_BORDER, (H - AVATAR_SIZE - AVATAR_STROKE) / 2)
+      img.blit(avatar, W - AVATAR_SIZE - AVATAR_BORDER, (H - AVATAR_SIZE) / 2)
 
-      const font = await jimp.loadFont(jimp.FONT_SANS_16_WHITE)
+      let font = await jimp.loadFont(jimp.FONT_SANS_16_WHITE)
       img.print(font, 10, 10, `${halo}%`)
+
+
+      img.blit(images.itens[0].image, (10 + AVATAR_BORDER / 4), 10)
+
+      img.blit(images.strips[0].image, 10 + AVATAR_BORDER / 4, 60)
+      const font2 = await jimp.loadFont('./fonts/DINRundschriftBreit.ttf.fnt')
+      img.print(font2, 10 + AVATAR_BORDER / 4, 60, {
+        text: msg.author.tag,
+        alignmentX: jimp.HORIZONTAL_ALIGN_CENTER,
+        alignmentY: jimp.VERTICAL_ALIGN_MIDDLE
+      }, images.strips[0].image.bitmap.width, images.strips[0].image.bitmap.height)
       img.getBuffer(jimp.MIME_PNG, (err, image) => {
         if (err) throw err
-        msg.channel.send(`<@${msg.author.id}>, a imagem gerada foi:`, new MessageAttachment(image, 'image.jpg'))
+        const embed = new MessageEmbed()
+          .setTitle(`${msg.author.tag} | Bem-vindx!`)
+          .setDescription(`Salve <@${msg.author.id}> Você acabou de entrar no servidor Ballerini. Aqui você poderá interagir com a comunidade, jogar, encontrar vagas, conversar sobre programação, tecnologia e muito mais!`)
+          .setColor(colors.background.color)
+          .setThumbnail(msg.author.displayAvatarURL({ format: 'png' }))
+          .addFields(
+            { name: 'Importante!', value: 'Conheça todas as regras do servidor para não ter nenhum problema <#836004917973614665>', inline: true },
+            { name: 'Primeiros passos', value: 'Para receber um cargo siga as instruções em <#872137949788135436>', inline: true },
+            { name: 'Apresente-se!', value: 'Conte um pouco mais sobre você em <#867928382086721556>', inline: true },
+            { name: 'Fique atento', value: 'Novos vídeos serão anunciados em <#859235851178868776>', inline: true },
+            { name: 'Inscreva-se no canal', value: '[Rafaella Ballerini](https://www.youtube.com/RafaellaBallerini)', inline: true },
+            { name: 'Siga no Instagram!', value: '[@rafaballerini](https://instagram.com/rafaballerini)', inline: true }
+          )
+          .attachFiles(new MessageAttachment(image, 'image.png'))
+          .setImage(`attachment://image.png`)
+          .setFooter('Aproveite!')
+          msg.channel.send({ embed: embed })
       })
     })
   }
