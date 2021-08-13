@@ -15,16 +15,12 @@ export const colors = {
 
 export const images = {
   assets: [
-    { filename: 'circle-small.png' },
-    { filename: 'circle.png' },
-    { filename: 'line-small.png' },
-    { filename: 'line.png' },
-    { filename: 'star.png' }
+    { filename: "circle-small.png" },
+    { filename: "circle.png" },
+    { filename: "line-small.png" },
+    { filename: "line.png" },
+    { filename: "star.png" }
   ],
-  strips: [
-    { filename: 'gold.png' }
-  ],
-  itens: [
-    { filename: 'logo.png' }
-  ]
+  strips: [{ filename: "gold.png" }],
+  itens: [{ filename: "logo.png" }]
 }

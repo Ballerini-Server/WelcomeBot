@@ -1,0 +1,10 @@
+const W = 600
+const H = 300
+const IS = 100
+const LUCKY = 60
+const LUCKY_DEC = 30
+const AVATAR_SIZE = 200
+const AVATAR_BORDER = 50
+const AVATAR_STROKE = 10
+
+export { W, H, IS, LUCKY, LUCKY_DEC, AVATAR_SIZE, AVATAR_BORDER, AVATAR_STROKE }
