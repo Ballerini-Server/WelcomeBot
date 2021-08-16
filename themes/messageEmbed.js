@@ -1,5 +1,6 @@
+const title = "{0} | Bem-vindx!"
 const description = "Você acabou de entrar no servidor Ballerini. Aqui você poderá interagir com a comunidade, jogar, encontrar vagas, conversar sobre programação, tecnologia e muito mais!"
-const footer = "Aproveite!"
+const footer = "Aproveite! | #{0}"
 const fields = [
   {
     name: "Importante!",
@@ -33,4 +34,4 @@ const fields = [
   }
 ]
 
-export { description, fields, footer }
+export { title, description, fields, footer }
