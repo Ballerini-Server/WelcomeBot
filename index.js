@@ -104,13 +104,13 @@ client.on('message', async msg => {
         if (err) throw err
         const messageEmbed = new MessageEmbed()
           .setTitle(title.replace('{0}', msg.author.tag))
-          .setDescription(`Salve <@${msg.author.id}> ${description}`)
+          .setDescription(description.replace('{0}', `<@${msg.author.id}>`))
           .setColor(colors.background.color)
           .addFields(fields)
           .attachFiles(new MessageAttachment(image, 'image.png'))
           .setImage(`attachment://image.png`)
           .setFooter(footer.replace('{0}', halo))
-        msg.channel.send({ embed: messageEmbed })
+        msg.channel.send(`<@${msg.author.id}>`, { embed: messageEmbed })
       })
     })
   }

@@ -1,5 +1,5 @@
 const title = "{0} | Bem-vindx!"
-const description = "Você acabou de entrar no servidor Ballerini. Aqui você poderá interagir com a comunidade, jogar, encontrar vagas, conversar sobre programação, tecnologia e muito mais!"
+const description = "Salve {0}! Você acabou de entrar no servidor Ballerini. Aqui você poderá interagir com a comunidade, jogar, encontrar vagas, conversar sobre programação, tecnologia e muito mais!"
 const footer = "Aproveite! | #{0}"
 const fields = [
   {
