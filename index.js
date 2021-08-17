@@ -40,6 +40,9 @@ client.on('message', async msg => {
     new jimp(W, H, colors.background, async (err, img) => {
       if (err) throw err
       let lucky = LUCKY
+      const space = W - AVATAR_SIZE - AVATAR_BORDER * 1.5 + AVATAR_STROKE * 2
+      const xLogo = (space - images.itens[0].image.bitmap.width) / 2
+      const yLogo = 30
 
       for (let l = 0; l < H / IS; ++l) {
         for (let c = 0; c < W / IS; ++c) {
@@ -47,8 +50,17 @@ client.on('message', async msg => {
             lucky = LUCKY
             const item = images.assets[sign.maxedOut(images.assets.length)].image
             const colored = new jimp(item.bitmap.width, item.bitmap.height, colors.assets[sign.maxedOut(colors.assets.length)])
+            const x = c * IS + sign.maxedOut(IS - item.bitmap.width)
+            const y = l * IS + sign.maxedOut(IS - item.bitmap.height)
+
+            if(((x + item.bitmap.width) >= xLogo && x <= (xLogo + images.itens[0].image.bitmap.width)) 
+            && ((y + item.bitmap.height) >= yLogo && (y <= yLogo + images.itens[0].image.bitmap.height))) {
+              console.log(x, y)
+              continue
+            }
+
             colored.mask(item, 0, 0)
-            img.blit(colored, c * IS + sign.maxedOut(IS - item.bitmap.width), l * IS + sign.maxedOut(IS - item.bitmap.height))
+            img.blit(colored, x, y)
           } else lucky -= LUCKY_DEC
         }
       }
@@ -62,8 +74,7 @@ client.on('message', async msg => {
       img.blit(halos.find(h => h.max >= halo).image, W - AVATAR_SIZE - AVATAR_STROKE / 2 - AVATAR_BORDER, (H - AVATAR_SIZE - AVATAR_STROKE) / 2)
       img.blit(avatar, W - AVATAR_SIZE - AVATAR_BORDER, (H - AVATAR_SIZE) / 2)
 
-      const space = W - AVATAR_SIZE - AVATAR_BORDER * 1.5 + AVATAR_STROKE * 2
-      img.blit(images.itens[0].image, (space - images.itens[0].image.bitmap.width) / 2, 30)
+      img.blit(images.itens[0].image, xLogo, yLogo)
       
       const drawText = (text, backgroundColor) => {
         const tw = jimp.measureText(font, text)
