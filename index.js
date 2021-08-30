@@ -55,7 +55,6 @@ client.on('message', async msg => {
 
             if(((x + item.bitmap.width) >= xLogo && x <= (xLogo + images.itens[0].image.bitmap.width)) 
             && ((y + item.bitmap.height) >= yLogo && (y <= yLogo + images.itens[0].image.bitmap.height))) {
-              console.log(x, y)
               continue
             }
 
