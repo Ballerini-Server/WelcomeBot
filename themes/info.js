@@ -21,16 +21,11 @@ export const images = {
     { filename: "line-small.png" },
     { filename: "line.png" },
     { filename: "star.png" }
-  ],
-  strips: [
-    { filename: "gold.png", x: 37, y: 41, w: 208, h: 43 }
-  ],
-  itens: [{ filename: "logo.png" }],
-  balles: [
-    { filename: "001.png" },
-    { filename: "002.png" },
-    { filename: "003.png" },
-    { filename: "004.png" },
-    { filename: "005.png" }
   ]
 }
+
+export const messages = [
+  'Você conseguiu!',
+  'Seja bem vindx!',
+  'Você é o melhor!'
+]

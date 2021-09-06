@@ -1,11 +1,11 @@
-const W = 600
-const H = 300
+const W = 1800
+const H = 900
 const IS = 100
-const LUCKY = 60
-const LUCKY_DEC = 30
-const AVATAR_SIZE = 200
+const LUCKY = 80
+const LUCKY_DEC = 1
+const AVATAR_SIZE = 400
 const AVATAR_BORDER = 50
-const AVATAR_STROKE = 10
+const AVATAR_STROKE = 25
 const BALLE_SIZE = 70
 const BALLE_STROKE = 6
 
